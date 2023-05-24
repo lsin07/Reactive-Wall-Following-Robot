@@ -45,7 +45,7 @@ def update_command_vel(linear_vel, angular_vel):
     g_pub.publish(msg)
 
 # Adaptive code for different lidar sensor ranges
-def getDir(msg, dir, region_deg):
+def getDist(msg, dir, region_deg):
     step = len(msg.ranges) // 16
     di_ranges = {
         'N' : msg.ranges[len(msg.ranges) - (region_deg // 2 - 1) : len(msg.ranges) - 1] + msg.ranges[0 : region_deg // 2],
@@ -67,17 +67,10 @@ def scan_callback(msg):
 
     # Each region scans 7 degrees
     region_deg = 7
-    regions = {
-        'N':  min(min(getDir(msg, 'N', region_deg)), scan_max_value),
-        'NNW':  min(min(getDir(msg, 'NNW', region_deg)), scan_max_value),
-        'NW':  min(min(getDir(msg, 'NW', region_deg)), scan_max_value),
-        'WNW':  min(min(getDir(msg, 'WNW', region_deg)), scan_max_value),
-        'W':  min(min(getDir(msg, 'W', region_deg)), scan_max_value),
-        'E':  min(min(getDir(msg, 'E', region_deg)), scan_max_value),
-        'ENE':  min(min(getDir(msg, 'ENE', region_deg)), scan_max_value),
-        'NE':  min(min(getDir(msg, 'NE', region_deg)), scan_max_value),
-        'NNE':  min(min(getDir(msg, 'NNE', region_deg)), scan_max_value),
-    }
+    dirs = ('N', 'NNW', 'NW', 'WNW', 'W', 'E', 'ENE', 'NE', 'NNE')
+    regions = {}
+    for d in dirs:
+        regions[d] = min(min(getDist(msg, d, region_deg)), scan_max_value)
 
     global g_side, g_alpha, g_state, g_turn_start_time, g_wall_direction
 
