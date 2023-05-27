@@ -1,5 +1,13 @@
 # Reactive Wall-Following Robot
 
+기존의 소스 코드를 시뮬레이션 환경이 아닌 실제 환경에서 작동하도록 일부 수정하였습니다. Gazebo 시뮬레이션 환경과 실제 환경 모두에서 작동합니다.
+
+This repository is a modified version of https://github.com/Octanas/Reactive-Wall-Following-Robot, which intended to work on both Gazebo simulation environments and real environments.
+
+Below is the original README.md file:
+
+---
+
 This repository contains an algorithm for solving the robotics wall-following problem and a setup simulated environment for testing. It runs on [ROS](https://www.ros.org/), using [Gazebo](http://gazebosim.org/) for the simulation and the [Turtlebot3](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/) robot. It includes various different environments, but the focus during development were the maps with a 'B'-shaped wall.
 
 An accompanying article about the project is included in this repository. 
